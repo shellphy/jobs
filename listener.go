@@ -160,6 +160,7 @@ func (p *Plugin) listener() {
 					// handle the response protocol
 					p.log.Error("aixaingfei")
 					err = p.respHandler.Handle(resp, jb)
+					p.log.Error("aixaingfei222")
 					if err != nil {
 						p.metrics.CountJobErr()
 						p.log.Error("response handler error", zap.Error(err), zap.String("ID", jb.ID()), zap.ByteString("response", resp.Body), zap.Time("start", start), zap.Int64("elapsed", time.Since(start).Milliseconds()))
