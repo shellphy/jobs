@@ -81,6 +81,7 @@ func (p *Plugin) listener() {
 
 					select {
 					case pld := <-re:
+						p.log.Error("aaa", zap.ByteString("bbb", pld.Body()))
 						if pld.Error() != nil {
 							p.metrics.CountJobErr()
 
