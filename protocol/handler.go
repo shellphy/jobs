@@ -64,6 +64,9 @@ func (rh *RespHandler) Handle(pld *payload.Payload, jb jobs.Job) error {
 		return errors.E(op, err)
 	}
 
+	rh.log.Error("aabbbbbb")
+	rh.log.Error("kkkkkk", zap.Uint32("type", uint32(p.T)))
+
 	switch p.T {
 	// likely case
 	case NoError:

@@ -158,6 +158,7 @@ func (p *Plugin) listener() {
 					}
 
 					// handle the response protocol
+					p.log.Error("aixaingfei")
 					err = p.respHandler.Handle(resp, jb)
 					if err != nil {
 						p.metrics.CountJobErr()
