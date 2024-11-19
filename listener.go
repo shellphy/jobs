@@ -120,6 +120,7 @@ func (p *Plugin) listener() {
 
 						// assign the payload
 						resp = pld.Payload()
+						p.log.Error("debug", zap.ByteString("resp body", resp.Body))
 					default:
 						// should never happen
 						p.metrics.CountJobErr()
