@@ -44,6 +44,8 @@ func (rh *RespHandler) handleNackResponse(data []byte, jb jobs.Job) error {
 	er := rh.getErrResp()
 	defer rh.putErrResp(er)
 
+	rh.log.Error("ssssssss", zap.Int("delay", er.Delay), zap.Bool("requeue", er.Requeue))
+
 	// we have an error message
 	if er.Msg != "" {
 		rh.log.Error("jobs nack request", zap.Error(errors.E(er.Msg)), zap.Int("delay", er.Delay), zap.Bool("requeue", er.Requeue))
