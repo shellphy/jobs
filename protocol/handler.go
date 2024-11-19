@@ -59,6 +59,7 @@ func (rh *RespHandler) Handle(pld *payload.Payload, jb jobs.Job) error {
 	p := rh.getProtocol()
 	defer rh.putProtocol(p)
 
+	rh.log.Error("eeeeewwwww")
 	err := json.Unmarshal(pld.Body, p)
 	if err != nil {
 		return errors.E(op, err)
