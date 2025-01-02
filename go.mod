@@ -1,4 +1,4 @@
-module github.com/shellphyjobs/v5
+module github.com/shellphy/jobs/v5
 
 go 1.23
 
