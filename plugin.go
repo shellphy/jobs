@@ -497,6 +497,7 @@ func (p *Plugin) Resume(ctx context.Context, pp string) error {
 
 // Declare a pipeline.
 func (p *Plugin) Declare(ctx context.Context, pipeline jobsApi.Pipeline) error {
+	p.log.Info("jobs_plugin_declare")
 	const op = errors.Op("jobs_plugin_declare")
 	// driver for the pipeline (ie amqp, ephemeral, etc)
 	dr := pipeline.Driver()
@@ -520,6 +521,8 @@ func (p *Plugin) Declare(ctx context.Context, pipeline jobsApi.Pipeline) error {
 
 	// jobConstructors contains constructors for the drivers
 	// we need here to initialize these drivers for the pipelines
+	p.log.Info("tttt", zap.Any("constructors", p.jobConstructors))
+
 	if _, ok := p.jobConstructors[dr]; ok {
 		// init the driver from a pipeline
 		initializedDriver, err := p.jobConstructors[dr].DriverFromPipeline(pipeline, p.queue)

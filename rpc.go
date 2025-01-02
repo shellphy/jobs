@@ -114,6 +114,7 @@ func (r *rpc) List(_ *jobsProto.Empty, resp *jobsProto.Pipelines) error {
 // 2. Pipeline name
 // 3. Options related to the particular pipeline
 func (r *rpc) Declare(req *jobsProto.DeclareRequest, _ *jobsProto.Empty) error {
+	r.p.log.Info("rpc_declare_pipeline")
 	const op = errors.Op("rpc_declare_pipeline")
 	pipe := Pipeline{}
 
