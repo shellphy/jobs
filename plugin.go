@@ -216,6 +216,7 @@ func (p *Plugin) Serve() chan error {
 }
 
 func (p *Plugin) Stop(ctx context.Context) error {
+	p.log.Error("stopstop")
 	// Broadcast stop signal to all pollers
 	close(p.stopCh)
 	// drop subscriptions
@@ -240,15 +241,19 @@ func (p *Plugin) Stop(ctx context.Context) error {
 
 	sema := semaphore.NewWeighted(int64(p.cfg.CfgOptions.Parallelism))
 	// range over all consumers and call stop
+	p.log.Error("aaaaaa")
 	p.consumers.Range(func(key, value any) bool {
+		p.log.Error("bbbbbb")
 		// acquire semaphore, but if RR canceled the context, we should stop
 		errA := sema.Acquire(ctx, 1)
 		if errA != nil {
+			p.log.Error("cccccc")
 			return false
 		}
 
 		go func() {
 			consumer := value.(jobsApi.Driver)
+			p.log.Error("dddd", zap.Any("consumer", consumer))
 			ctxT, cancel := context.WithTimeout(ctx, time.Second*time.Duration(p.cfg.Timeout))
 			err := consumer.Stop(ctxT)
 			if err != nil {
