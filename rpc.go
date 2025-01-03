@@ -2,6 +2,7 @@ package jobs
 
 import (
 	"context"
+	"go.uber.org/zap"
 	"sync"
 	"time"
 
@@ -146,6 +147,7 @@ func (r *rpc) Destroy(req *jobsProto.Pipelines, resp *jobsProto.Pipelines) error
 	errg.SetLimit(r.p.cfg.CfgOptions.Parallelism)
 
 	var destroyed []string
+	r.p.log.Error("req", zap.Any("req", req))
 	for i := 0; i < len(req.GetPipelines()); i++ {
 		errg.Go(func() error {
 			ctx, span := r.p.tracer.Tracer(spanName).Start(context.Background(), "destroy_pipeline", trace.WithSpanKind(trace.SpanKindServer))
